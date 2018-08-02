@@ -63,8 +63,6 @@ task pythonTest(type: Exec) {
 
 test.dependsOn pythonTest
 pythonTest.dependsOn shadowJar
-tasks.build.dependsOn tasks.shadowJar
-taks.install.dependsOn tasks.shadowJar
 
 sourceSets.test {
     resources.srcDirs = ["src/test/resources"]
@@ -92,3 +90,11 @@ dependencies {
     testCompile("org.hamcrest:hamcrest-all:1.3")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 }
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'paprika'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
