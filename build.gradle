@@ -76,7 +76,6 @@ processTestResources.dependsOn copyTestResources
 
 dependencies {
     // Not on maven central
-    compile 'net.sourceforge.jFuzzyLogic:JFuzzyLogic@jar'
     compile files("${rootDir}/lib/jFuzzyLogic.jar")
 
     compile 'ca.mcgill.sable:soot:3.1.0-SNAPSHOT'
