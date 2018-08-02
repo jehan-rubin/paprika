@@ -1,5 +1,7 @@
 # paprika
 
+[![](https://jitpack.io/v/alexandre-clement/paprika.svg)](https://jitpack.io/#alexandre-clement/paprika)
+
 Paprika is a powerful toolkit to detect some code smells in analysed Android applications.
 
 # Table of contents

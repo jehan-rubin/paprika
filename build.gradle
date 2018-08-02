@@ -63,6 +63,7 @@ task pythonTest(type: Exec) {
 
 test.dependsOn pythonTest
 pythonTest.dependsOn shadowJar
+tasks.build.dependsOn tasks.shadowJar
 
 sourceSets.test {
     resources.srcDirs = ["src/test/resources"]
