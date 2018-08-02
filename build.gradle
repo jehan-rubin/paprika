@@ -39,7 +39,7 @@ repositories {
     }
 
     flatDir {
-        dirs '$rootProject.projectDir/lib'
+        dirs file("${rootDir}/lib")
     }
 }
 
