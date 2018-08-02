@@ -26,6 +26,7 @@ compileTestJava {
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 
     maven {
         name = "soot-snapshot"
