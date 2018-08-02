@@ -1,2 +1,1 @@
 include ':library'
-include fileTree(dir: 'lib', include: ['*.jar'])
