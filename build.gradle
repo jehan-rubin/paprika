@@ -88,4 +88,5 @@ dependencies {
 
     // Not on maven central
     compile 'net.sourceforge.jFuzzyLogic:JFuzzyLogic'
+    compile fileTree(dir: 'lib', include: ['*.jar'])
 }
