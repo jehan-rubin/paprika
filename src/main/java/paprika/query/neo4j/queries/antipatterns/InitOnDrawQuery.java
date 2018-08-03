@@ -35,7 +35,7 @@ public class InitOnDrawQuery extends PaprikaQuery {
     public String getQuery(boolean details) {
         String query = "MATCH (:Class{parent_name:'android.view.View'})-[:CLASS_OWNS_METHOD]->\n" +
                 "   (n:Method{name:'onDraw'})-[:CALLS]->({name:'<init>'})\n" +
-                "RETURN n.app_key as app_key, n.full_name, labels(n)[0] as `LABEL[0]`";
+                "RETURN n.app_key as app_key, n.full_name as full_name, labels(n)[0] as `LABEL[0]`";
         return query;
     }
 

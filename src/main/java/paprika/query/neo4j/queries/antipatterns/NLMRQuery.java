@@ -38,7 +38,7 @@ public class NLMRQuery extends PaprikaQuery {
                 "       OR exists(cl.is_content_provider))\n" +
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onLowMemory'})\n" +
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onTrimMemory'})\n" +
-                "RETURN cl.app_key, cl.name, labels(cl)[0] as `LABEL[0]`";
+                "RETURN cl.app_key as app_key, cl.name as name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 
