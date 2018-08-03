@@ -31,20 +31,6 @@ public class MIMQuery extends PaprikaQuery {
         super(KEY);
     }
 
-    /*
-        MATCH (m1:Method)
-        WHERE m1.number_of_callers > 0 AND NOT exists(m1.is_static)
-            AND NOT exists(m1.is_override)
-            AND NOT (m1)-[:USES]->(:Variable)
-            AND NOT (m1)-[:CALLS]->(:ExternalMethod)
-            AND NOT (m1)-[:CALLS]->(:Method)
-            AND NOT exists(m1.is_init)
-        RETURN m1.app_key as app_key
-
-        details -> m1.full_name as full_name
-        else -> count(m1) as MIM
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = " MATCH (m1:Method)\n" +
@@ -54,12 +40,7 @@ public class MIMQuery extends PaprikaQuery {
                 "   AND NOT (m1)-[:CALLS]->(:ExternalMethod)\n" +
                 "   AND NOT (m1)-[:CALLS]->(:Method)\n" +
                 "   AND NOT exists(m1.is_init)\n" +
-                "RETURN m1.app_key as app_key,";
-        if (details) {
-            query += " m1.full_name as full_name";
-        } else {
-            query += "count(m1) as MIM";
-        }
+                "RETURN m1.app_key as app_key, m1.full_name, labels(cl)[0] as LABEL[0]";
         return query;
     }
 

@@ -31,29 +31,13 @@ public class InvalidateWithoutRectQuery extends PaprikaQuery {
         super(KEY);
     }
 
-    /*
-        MATCH (a:App)-[:APP_OWNS_CLASS]->(:Class{parent_name:'android.view.View'})-[:CLASS_OWNS_METHOD]->
-              (n:Method{name:'onDraw'})-[:CALLS]->(e:ExternalMethod{name:'invalidate'})
-        WHERE NOT (e)-[:METHOD_OWNS_ARGUMENT]->(:ExternalArgument)
-            AND (a.target_sdk < 14)
-        RETURN n.app_key
-
-        details -> n.full_name as full_name
-        else -> count(n) as IWR
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = "MATCH (a:App)-[:APP_OWNS_CLASS]->(:Class{parent_name:'android.view.View'})-[:CLASS_OWNS_METHOD]->\n" +
                 "(n:Method{name:'onDraw'})-[:CALLS]->(e:ExternalMethod{name:'invalidate'})\n" +
                 "WHERE NOT (e)-[:METHOD_OWNS_ARGUMENT]->(:ExternalArgument)\n" +
                 "   AND (a.target_sdk < 14)\n" +
-                "RETURN n.app_key,";
-        if (details) {
-            query += "n.full_name as full_name";
-        } else {
-            query += "count(n) as IWR";
-        }
+                "RETURN n.app_key, n.full_name, labels(cl)[0] as LABEL[0]";
         return query;
     }
 

@@ -41,10 +41,7 @@ public class HashMapUsageQuery extends PaprikaQuery {
     @Override
     public String getQuery(boolean details) {
         String query = "MATCH (m:Method)-[:CALLS]->(e:ExternalMethod{full_name:'<init>#java.util.HashMap'})\n" +
-                "RETURN m.app_key, m.full_name AS full_name";
-        if (details) {
-            query += ",count(m) as HMU";
-        }
+                "RETURN m.app_key, m.full_name, labels(cl)[0] as LABEL[0]";
         return query;
     }
 

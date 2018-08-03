@@ -31,25 +31,11 @@ public class LICQuery extends PaprikaQuery {
         super(KEY);
     }
 
-    /*
-        MATCH (cl:Class) WHERE exists(cl.is_inner_class)
-        AND NOT exists(cl.is_static)
-        RETURN cl.app_key as app_key
-
-        details -> cl.name as full_name
-        else -> count(cl) as LIC
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = "MATCH (cl:Class) WHERE exists(cl.is_inner_class)\n" +
                 "   AND NOT exists(cl.is_static)\n" +
-                "RETURN cl.app_key as app_key,";
-        if (details) {
-            query += "cl.name as full_name";
-        } else {
-            query += "count(cl) as LIC";
-        }
+                "RETURN cl.app_key as app_key, cl.name, labels(cl)[0] as LABEL[0]";
         return query;
     }
 
