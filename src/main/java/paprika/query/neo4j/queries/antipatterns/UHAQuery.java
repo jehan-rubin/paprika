@@ -73,7 +73,7 @@ public class UHAQuery extends PaprikaQuery {
         String query = "MATCH (a:App)-[:APP_OWNS_CLASS]->(:Class)-[:CLASS_OWNS_METHOD]->\n" +
                 "   (m:Method)-[:CALLS]->(e:ExternalMethod)\n" +
                 "WHERE " + isUHAMethod() + "\n" +
-                "RETURN m.app_key, m.full_name, labels(cl)[0] as 'LABEL[0]'";
+                "RETURN m.app_key, m.full_name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 
