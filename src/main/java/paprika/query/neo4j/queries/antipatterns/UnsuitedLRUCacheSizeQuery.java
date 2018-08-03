@@ -37,7 +37,7 @@ public class UnsuitedLRUCacheSizeQuery extends PaprikaQuery {
                 "WHERE NOT (m)-[:CALLS]->(:ExternalMethod {full_name:'getMemoryClass#android.app.ActivityManager'})\n" +
                 "   AND NOT (m)-[:CALLS]->(:ExternalMethod {full_name:'getMemoryInfo#android.app.ActivityManager'})\n" +
                 "   AND NOT (m)-[:CALLS]->(:ExternalMethod {full_name:'maxMemory#java.lang.Runtime'})\n" +
-                "RETURN m.app_key as app_key, m.full_name, labels(cl)[0] as `LABEL[0]`";
+                "RETURN m.app_key as app_key, m.full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
 
