@@ -37,7 +37,7 @@ public class InvalidateWithoutRectQuery extends PaprikaQuery {
                 "(n:Method{name:'onDraw'})-[:CALLS]->(e:ExternalMethod{name:'invalidate'})\n" +
                 "WHERE NOT (e)-[:METHOD_OWNS_ARGUMENT]->(:ExternalArgument)\n" +
                 "   AND (a.target_sdk < 14)\n" +
-                "RETURN n.app_key, n.full_name, labels(cl)[0] as LABEL[0]";
+                "RETURN n.app_key, n.full_name, labels(cl)[0] as 'LABEL[0]'";
         return query;
     }
 

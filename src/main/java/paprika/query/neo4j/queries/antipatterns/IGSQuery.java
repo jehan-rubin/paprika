@@ -36,7 +36,7 @@ public class IGSQuery extends PaprikaQuery {
         String query = "MATCH (a:App) WITH a.app_key as key\n" +
                 "MATCH (cl:Class {app_key: key})-[:CLASS_OWNS_METHOD]->(m1:Method {app_key: key})-[:CALLS]->(m2:Method {app_key: key})\n" +
                 "WHERE (m2.is_setter OR m2.is_getter) AND (cl)-[:CLASS_OWNS_METHOD]->(m2)\n" +
-                "RETURN m1.app_key, m1.full_name, labels(cl)[0] as LABEL[0]";
+                "RETURN m1.app_key, m1.full_name, labels(cl)[0] as 'LABEL[0]'";
         return query;
     }
 

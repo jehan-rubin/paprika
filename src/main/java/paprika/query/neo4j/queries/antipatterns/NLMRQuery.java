@@ -39,7 +39,7 @@ public class NLMRQuery extends PaprikaQuery {
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onLowMemory'})\n" +
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onTrimMemory'})\n" +
                 "   AND NOT (cl)-[:EXTENDS]->(:Class)\n" +
-                "RETURN cl.app_key, cl.name, labels(cl)[0] as LABEL[0]";
+                "RETURN cl.app_key, cl.name, labels(cl)[0] as 'LABEL[0]'";
         return query;
     }
 

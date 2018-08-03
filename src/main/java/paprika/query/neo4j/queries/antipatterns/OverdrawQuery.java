@@ -38,7 +38,7 @@ public class OverdrawQuery extends PaprikaQuery {
                 "WHERE NOT (n)-[:CALLS]->(:ExternalMethod{full_name:\"clipRect#android.graphics.Canvas\"})\n" +
                 "   AND NOT (n)-[:CALLS]->(:ExternalMethod{full_name:\"quickReject#android.graphics.Canvas\"})\n" +
                 "   AND NOT (n)-[:CALLS]->(:ExternalMethod{full_name:\"clipOutRect#android.graphics.Canvas\"})\n" +
-                "RETURN n.app_key, n.full_name, labels(cl)[0] as LABEL[0]";
+                "RETURN n.app_key, n.full_name, labels(cl)[0] as 'LABEL[0]'";
         return query;
     }
 

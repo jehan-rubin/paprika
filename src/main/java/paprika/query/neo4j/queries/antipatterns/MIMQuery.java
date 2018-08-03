@@ -40,7 +40,7 @@ public class MIMQuery extends PaprikaQuery {
                 "   AND NOT (m1)-[:CALLS]->(:ExternalMethod)\n" +
                 "   AND NOT (m1)-[:CALLS]->(:Method)\n" +
                 "   AND NOT exists(m1.is_init)\n" +
-                "RETURN m1.app_key as app_key, m1.full_name, labels(cl)[0] as LABEL[0]";
+                "RETURN m1.app_key as app_key, m1.full_name, labels(cl)[0] as 'LABEL[0]'";
         return query;
     }
 
