@@ -44,7 +44,15 @@ public class ClassProcessor {
             new IsInnerClassStatic()
     };
 
-    private IsSubClass[] subClassConditions = {};
+    private IsSubClass[] subClassConditions = {
+            new IsActivity(),
+            new IsApplication(),
+            new IsAsyncTask(),
+            new IsBroadcastReceiver(),
+            new IsContentProvider(),
+            new IsService(),
+            new IsView()
+    };
 
     private CommonCondition[] conditions = {
             new IsFinal(), // This must stay at index 0
