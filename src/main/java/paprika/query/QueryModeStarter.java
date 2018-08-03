@@ -45,7 +45,7 @@ public class QueryModeStarter extends PaprikaStarter {
             QueryEngine queryEngine = createQueryEngine();
             String request = argParser.getArg(REQUEST_ARG);
             Boolean details = argParser.getFlagArg(DETAILS_ARG);
-            String csvPrefix = getCSVPrefix(argParser.getArg(CSV_ARG));
+            String csvPrefix = argParser.getArg(CSV_ARG);
             out.println("Resulting csv file name will start with prefix " + csvPrefix);
             queryEngine.setCsvPrefix(csvPrefix);
             PaprikaRequest paprikaRequest = PaprikaRequest.getRequest(request);
@@ -61,13 +61,4 @@ public class QueryModeStarter extends PaprikaStarter {
             e.printStackTrace(out);
         }
     }
-
-    private String getCSVPrefix(String csvPath) {
-        Calendar cal = new GregorianCalendar();
-        String csvDate = String.valueOf(cal.get(Calendar.YEAR)) + "_" +
-                String.valueOf(cal.get(Calendar.MONTH) + 1) + "_" + String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) +
-                "_" + String.valueOf(cal.get(Calendar.HOUR_OF_DAY)) + "_" + String.valueOf(cal.get(Calendar.MINUTE));
-        return csvPath + csvDate;
-    }
-
 }
