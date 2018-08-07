@@ -97,7 +97,6 @@ public class PaprikaContainer {
         PaprikaClass paprikaClass = classMap.get(sootClass);
         if (paprikaClass == null) {
             // Should be R or external classes
-            System.out.println(sootMethod);
             try {
                 sootClass.setLibraryClass();
             } catch (NullPointerException e) {
