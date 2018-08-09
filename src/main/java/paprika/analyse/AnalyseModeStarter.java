@@ -44,8 +44,7 @@ public class AnalyseModeStarter extends PaprikaStarter {
 
     @Override
     public void start() {
-        try {
-            ModelToGraph modelToGraph = new ModelToGraph(argParser.getArg(DATABASE_ARG));
+        try (ModelToGraph modelToGraph = new ModelToGraph(argParser.getArg(DATABASE_ARG))) {
             List<String> appsPaths = argParser.getAppsPaths();
             if (argParser.isFolderMode()) {
                 out.println("Analyzing all apps in folder " + argParser.getArg(APK_ARG));
@@ -62,7 +61,8 @@ public class AnalyseModeStarter extends PaprikaStarter {
                 saveIntoDatabase(app, modelToGraph);
                 out.println("Done");
             }
-        } catch (PropertiesException | IOException | NoSuchAlgorithmException e) {
+        }
+        catch (PropertiesException | IOException | NoSuchAlgorithmException e) {
             e.printStackTrace(out);
         }
     }
@@ -86,7 +86,8 @@ public class AnalyseModeStarter extends PaprikaStarter {
         }
         try {
             analyzer.runAnalysis(creator.createApp(), argParser.getFlagArg(ONLY_MAIN_PACKAGE_ARG));
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e) {
             if (retries < SOOT_RETRIES) {
                 // Soot, please stop crashing randomly. We'll try this again.
                 out.println("Encountered soot issue on app " + apkPath);

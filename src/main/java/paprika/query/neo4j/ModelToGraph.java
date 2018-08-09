@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Created by Geoffrey Hecht on 05/06/14.
  */
-public class ModelToGraph {
+public class ModelToGraph implements AutoCloseable {
 
     public static final String APP_TYPE = "App";
     public static final String CLASS_TYPE = "Class";
@@ -243,5 +243,10 @@ public class ModelToGraph {
                 }
             }
         }
+    }
+
+    @Override
+    public void close() {
+        this.graphDatabaseService.shutdown();
     }
 }
