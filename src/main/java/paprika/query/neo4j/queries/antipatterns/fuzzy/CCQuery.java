@@ -39,41 +39,17 @@ public class CCQuery extends FuzzyQuery {
         super(KEY, "ComplexClass.fcl", reader);
     }
 
-    /*
-        MATCH (cl:Class)
-        WHERE cl.class_complexity > veryHigh
-        RETURN cl.app_key as app_key
-
-        details -> cl.name as full_name
-        else -> count(cl) as CC
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = getCCNodes(reader.get("Class_complexity_veryHigh"));
-        query += "RETURN cl.app_key as app_key,";
-        if (details) {
-            query += "cl.name as full_name";
-        } else {
-            query += "count(cl) as CC";
-        }
+        query += "RETURN cl.name as name, cl.app_key as app_key, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
-
-    /*
-        MATCH (cl:Class) WHERE cl.class_complexity > high
-        RETURN cl.app_key as app_key, cl.class_complexity as class_complexity
-
-        details -> cl.name as full_name
-     */
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getCCNodes(reader.get("Class_complexity_high"));
-        query += "RETURN cl.app_key as app_key, cl.class_complexity as class_complexity";
-        if (details) {
-            query += ",cl.name as full_name";
-        }
+        query += "RETURN cl.name as name, cl.app_key as app_key, cl.class_complexity as class_complexity, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 

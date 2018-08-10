@@ -39,44 +39,17 @@ public class SAKQuery extends FuzzyQuery {
         super(KEY, "SwissArmyKnife.fcl", reader);
     }
 
-    /*
-        MATCH (cl:Class)
-        WHERE exists(cl.is_interface)
-            AND cl.number_of_methods > veryHigh
-        RETURN cl.app_key as app_key
-
-        details -> cl.name as full_name
-        else -> count(cl) as SAK
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = getSAKNodes(reader.get("SAK_methods_veryHigh"));
-        query += "RETURN cl.app_key as app_key,";
-        if (details) {
-            query +="cl.name as full_name";
-        } else {
-            query += " count(cl) as SAK";
-        }
+        query += "RETURN cl.app_key as app_key, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
-
-    /*
-        MATCH (cl:Class)
-        WHERE exists(cl.is_interface)
-            AND cl.number_of_methods > high
-        RETURN cl.app_key as app_key,cl.number_of_methods as number_of_methods
-
-        details -> cl.name as full_name
-     */
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getSAKNodes(reader.get("SAK_methods_high"));
-        query += "RETURN cl.app_key as app_key,cl.number_of_methods as number_of_methods";
-        if (details) {
-            query +=",cl.name as full_name";
-        }
+        query += "RETURN cl.app_key as app_key,cl.number_of_methods as number_of_methods, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
 

@@ -31,48 +31,20 @@ public class HeavyServiceStartQuery extends HeavySomethingQuery {
         super(KEY, reader);
     }
 
-    /*
-        MATCH (c:Class{is_service:true})-[:CLASS_OWNS_METHOD]->(m:Method{name:'onStartCommand'})
-        WHERE m.number_of_instructions > veryHigh_noi
-            AND m.cyclomatic_complexity > veryHigh_cc
-        RETURN m.app_key as app_key
-
-        details -> m.full_name as full_name
-        else -> count(m) as HSS
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = getHSSNodes(reader.get("Heavy_class_veryHigh_noi"),
                 reader.get("Heavy_class_veryHigh_cc"));
-        query += " RETURN m.app_key as app_key,";
-        if (details) {
-            query += "m.full_name as full_name";
-        } else {
-            query += " count(m) as HSS";
-        }
+        query += " RETURN m.app_key as app_key, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
-
-    /*
-        MATCH (c:Class{is_service:true})-[:CLASS_OWNS_METHOD]->(m:Method{name:'onStartCommand'})
-        WHERE m.number_of_instructions > high_noi
-            AND m.cyclomatic_complexity > high_cc
-        RETURN m.app_key as app_key,m.cyclomatic_complexity as cyclomatic_complexity,
-            m.number_of_instructions as number_of_instructions
-
-        details -> m.full_name as full_name
-     */
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getHSSNodes(reader.get("Heavy_class_high_noi"),
                 reader.get("Heavy_class_high_cc"));
         query += " RETURN m.app_key as app_key,m.cyclomatic_complexity as cyclomatic_complexity,\n" +
-                "m.number_of_instructions as number_of_instructions";
-        if (details) {
-            query += ",m.full_name as full_name";
-        }
+                "m.number_of_instructions as number_of_instructions, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
 

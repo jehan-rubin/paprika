@@ -39,40 +39,17 @@ public class LMQuery extends FuzzyQuery {
         super(KEY, "LongMethod.fcl", reader);
     }
 
-    /*
-        MATCH (m:Method) WHERE m.number_of_instructions > veryHigh
-        RETURN m.app_key as app_key
-
-        details -> m.full_name as full_name
-        else -> count(m) as LM
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = getLMNodes(reader.get("Long_method_noi_veryHigh"));
-        query += "RETURN m.app_key as app_key,";
-        if (details) {
-            query += "m.full_name as full_name";
-        } else {
-            query += "count(m) as LM";
-        }
+        query += "RETURN m.app_key as app_key, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
-
-    /*
-        MATCH (m:Method) WHERE m.number_of_instructions > high
-        RETURN m.app_key as app_key,m.number_of_instructions as number_of_instructions,
-
-        details -> m.full_name as full_name
-     */
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getLMNodes(reader.get("Long_method_noi_high"));
-        query += "RETURN m.app_key as app_key,m.number_of_instructions as number_of_instructions";
-        if (details) {
-            query += ",m.full_name as full_name";
-        }
+        query += "RETURN m.app_key as app_key,m.number_of_instructions as number_of_instructions, m.full_name as full_name, labels(m)[0] as `LABEL[0]`";
         return query;
     }
 

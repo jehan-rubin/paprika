@@ -39,50 +39,20 @@ public class BLOBQuery extends FuzzyQuery {
         super(KEY, "Blob.fcl", reader);
     }
 
-    /*
-        MATCH (cl:Class)
-        WHERE cl.lack_of_cohesion_in_methods > veryHigh_lcom
-            AND cl.number_of_methods > veryHigh_nom
-            AND cl.number_of_attributes > veryHigh_noa
-        RETURN cl.app_key as app_key
-
-        details -> cl.name as full_name,
-        else -> count(cl) as BLOB
-     */
-
     @Override
     public String getQuery(boolean details) {
         String query = getBLOBNodes(reader.get("Blob_veryHigh_lcom"), reader.get("Blob_veryHigh_nom"),
                 reader.get("Blob_veryHigh_noa"));
-        query += "RETURN cl.app_key as app_key,";
-        if (details) {
-            query += "cl.name as full_name";
-        } else {
-            query += "count(cl) as BLOB";
-        }
+        query += "RETURN cl.app_key as app_key, cl.name as name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
-
-    /*
-        MATCH (cl:Class)
-        WHERE cl.lack_of_cohesion_in_methods > high_lcom
-            AND cl.number_of_methods > high_nom
-            AND cl.number_of_attributes > high_noa
-        RETURN cl.app_key as app_key, cl.lack_of_cohesion_in_methods as lack_of_cohesion_in_methods,
-            cl.number_of_methods as number_of_methods, cl.number_of_attributes as number_of_attributes
-
-        details -> cl.name as full_name
-     */
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getBLOBNodes(reader.get("Blob_high_lcom"), reader.get("Blob_high_nom"),
                 reader.get("Blob_high_noa"));
-        query += "RETURN cl.app_key as app_key, cl.lack_of_cohesion_in_methods as lack_of_cohesion_in_methods,\n" +
-                " cl.number_of_methods as number_of_methods, cl.number_of_attributes as number_of_attributes";
-        if (details) {
-            query += ",cl.name as full_name";
-        }
+        query += "RETURN cl.name as name, cl.app_key as app_key, cl.lack_of_cohesion_in_methods as lack_of_cohesion_in_methods,\n" +
+                " cl.number_of_methods as number_of_methods, cl.number_of_attributes as number_of_attributes, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 
