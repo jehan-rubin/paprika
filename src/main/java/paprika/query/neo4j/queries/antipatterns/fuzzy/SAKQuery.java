@@ -42,14 +42,14 @@ public class SAKQuery extends FuzzyQuery {
     @Override
     public String getQuery(boolean details) {
         String query = getSAKNodes(reader.get("SAK_methods_veryHigh"));
-        query += "RETURN cl.app_key as app_key, cl.full_name as full_name, labels(cl)[0] as `LABEL[0]`";
+        query += "RETURN cl.app_key as app_key, cl.name as name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 
     @Override
     public String getFuzzyQuery(boolean details) {
         String query = getSAKNodes(reader.get("SAK_methods_high"));
-        query += "RETURN cl.app_key as app_key,cl.number_of_methods as number_of_methods, cl.full_name as full_name, labels(cl)[0] as `LABEL[0]`";
+        query += "RETURN cl.app_key as app_key,cl.number_of_methods as number_of_methods, cl.name as name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }
 
