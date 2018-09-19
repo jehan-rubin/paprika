@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_paprika" default="compile.module.paprika">
+  <dirname property="module.paprika.basedir" file="${ant.file.module_paprika}"/>
+  
+  <property name="module.jdk.home.paprika" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.paprika" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.paprika" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.paprika" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="paprika.output.dir" value="${module.paprika.basedir}/classes/production/paprika"/>
+  <property name="paprika.testoutput.dir" value="${module.paprika.basedir}/classes/test/paprika"/>
+  
+  <path id="paprika.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="paprika.module.production.classpath">
+    <path refid="${module.jdk.classpath.paprika}"/>
+  </path>
+  
+  <path id="paprika.runtime.production.module.classpath">
+    <pathelement location="${paprika.output.dir}"/>
+  </path>
+  
+  <path id="paprika.module.classpath">
+    <path refid="${module.jdk.classpath.paprika}"/>
+    <pathelement location="${paprika.output.dir}"/>
+  </path>
+  
+  <path id="paprika.runtime.module.classpath">
+    <pathelement location="${paprika.testoutput.dir}"/>
+    <pathelement location="${paprika.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.paprika">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.paprika">
+    <patternset refid="excluded.from.module.paprika"/>
+  </patternset>
+  
+  
+  <target name="compile.module.paprika" depends="compile.module.paprika.production,compile.module.paprika.tests" description="Compile module paprika"/>
+  
+  <target name="compile.module.paprika.production" depends="register.custom.compilers" description="Compile module paprika; production classes"/>
+  
+  <target name="compile.module.paprika.tests" depends="register.custom.compilers,compile.module.paprika.production" description="compile module paprika; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.paprika" description="cleanup module">
+    <delete dir="${paprika.output.dir}"/>
+    <delete dir="${paprika.testoutput.dir}"/>
+  </target>
+</project>

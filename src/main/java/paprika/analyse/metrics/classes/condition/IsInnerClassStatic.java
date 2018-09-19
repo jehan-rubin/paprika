@@ -23,6 +23,8 @@ import paprika.analyse.metrics.common.IsStatic;
 import soot.SootClass;
 import soot.SootField;
 
+import java.util.Objects;
+
 /**
  * Created by Geoffrey Hecht on 06/08/14.
  */
@@ -45,6 +47,9 @@ public class IsInnerClassStatic extends CountedClassCondition {
         boolean match = super.createIfMatching(sootClass, paprikaClass);
         if (match && sootClass != null && isInnerClassStatic(sootClass)) {
             IsStatic.createIsStatic(paprikaClass);
+        }
+        else{
+            IsStatic.createIsStaticFalse(paprikaClass);
         }
         return match;
     }

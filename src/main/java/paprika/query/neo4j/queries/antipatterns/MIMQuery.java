@@ -34,12 +34,12 @@ public class MIMQuery extends PaprikaQuery {
     @Override
     public String getQuery(boolean details) {
         String query = " MATCH (m1:Method)\n" +
-                "WHERE m1.number_of_callers > 0 AND NOT exists(m1.is_static)\n" +
-                "   AND NOT exists(m1.is_override)\n" +
+                "WHERE m1.number_of_callers > 0 m1.is_static = false\n" +
+                "   AND m1.is_override = false\n" +
                 "   AND NOT (m1)-[:USES]->(:Variable)\n" +
                 "   AND NOT (m1)-[:CALLS]->(:ExternalMethod)\n" +
                 "   AND NOT (m1)-[:CALLS]->(:Method)\n" +
-                "   AND NOT exists(m1.is_init)\n" +
+                "   AND m1.is_init = false\n" +
                 "RETURN m1.app_key as app_key, m1.full_name as full_name, labels(m1)[0] as `LABEL[0]`";
         return query;
     }

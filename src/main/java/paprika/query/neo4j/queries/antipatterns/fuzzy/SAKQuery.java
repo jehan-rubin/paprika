@@ -55,7 +55,7 @@ public class SAKQuery extends FuzzyQuery {
 
     private String getSAKNodes(double threshold) {
         return "MATCH (cl:Class)\n" +
-                "WHERE exists(cl.is_interface)\n" +
+                "WHERE cl.is_interface = true\n" +
                 "   AND cl.number_of_methods > " + threshold + "\n";
     }
 

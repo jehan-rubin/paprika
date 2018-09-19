@@ -33,8 +33,8 @@ public class LICQuery extends PaprikaQuery {
 
     @Override
     public String getQuery(boolean details) {
-        String query = "MATCH (cl:Class) WHERE exists(cl.is_inner_class)\n" +
-                "   AND NOT exists(cl.is_static)\n" +
+        String query = "MATCH (cl:Class) WHERE cl.is_inner_class = true \n" +
+                "   AND cl.is_static = false\n" +
                 "RETURN cl.app_key as app_key, cl.name as name, labels(cl)[0] as `LABEL[0]`";
         return query;
     }

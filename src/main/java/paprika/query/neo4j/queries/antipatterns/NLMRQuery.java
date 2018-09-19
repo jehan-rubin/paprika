@@ -34,7 +34,7 @@ public class NLMRQuery extends PaprikaQuery {
     @Override
     public String getQuery(boolean details) {
         String query = "MATCH (app:App)-[:APP_OWNS_CLASS]->(cl:Class) \n" +
-                "WHERE exists(cl.is_activity)\n" +
+                "WHERE cl.is_activity = true\n" +
                 "   AND cl.name STARTS WITH app.package" +
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onLowMemory'})\n" +
                 "   AND NOT (cl:Class)-[:CLASS_OWNS_METHOD]->(:Method {name: 'onTrimMemory'})\n" +

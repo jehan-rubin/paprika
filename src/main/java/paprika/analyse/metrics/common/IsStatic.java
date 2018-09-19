@@ -40,6 +40,11 @@ public class IsStatic extends CommonCondition {
         metric.updateEntity();
     }
 
+    public static void createIsStaticFalse(PaprikaClass paprikaClass){
+        UnaryMetric<Boolean> metric = new UnaryMetric<>(NAME, paprikaClass, false);
+        metric.updateEntity();
+    }
+
     @Override
     public boolean matches(SootClass sootClass) {
         throw new RuntimeException("SootClass.isStatic() does not behave as expected, " +
